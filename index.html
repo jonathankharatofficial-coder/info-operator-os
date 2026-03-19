@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info Operator OS</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;--bg2:#111113;--bg3:#1a1a1e;--bg4:#222228;--bg5:#2c2c35;
+  --accent:#c8f135;--success:#44dd88;--warn:#ffaa44;--danger:#ff5555;--info:#5599ff;
+  --border:#2a2a35;--border2:#383848;
+  --text:#e8e8f0;--text2:#9090a8;--text3:#606075;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+}
+html,body,#root{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans)}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+textarea{resize:vertical;font-family:var(--sans);font-size:13px;line-height:1.6;color:var(--text);background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:12px 14px;width:100%;outline:none;min-height:100px;transition:border-color 0.15s}
+textarea:focus{border-color:var(--accent)}
+textarea::placeholder{color:var(--text3)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useCallback}=React;
+
+const STEPS=[
+  {id:1,title:"The Business Model",tag:"OVERVIEW",summary:"Info operating: partner with creators, build & run their info product, take a percentage.",keyMetric:"$178K personal profit month — 62K own offer + 116K client offers",mindset:"You are a percentage-based partner, NOT an agency. Think like a business partner, not a service provider.",tips:["Two options: build your own audience (years) OR partner with someone who already has one (weeks).","The operator runs everything backend while creator does marketing.","One solid creator can replace a full-time income. Two or three can make you rich.","Never run this like an agency. Run it like a partnership. Partners stay. Clients leave."],checklist:[{id:"bm1",text:"Understand split: creator does content, you do backend ops"},{id:"bm2",text:"Decide: operator (running backend) or creator (own offer)?"},{id:"bm3",text:"Commit to partnership mindset — not agency mindset"},{id:"bm4",text:"Set income target, reverse-engineer # of creators needed"},{id:"bm5",text:"Read through this entire guide before taking action"}]},
+  {id:2,title:"Choose Your Niche",tag:"RESEARCH",summary:"Pick 1–2 niches max. Focus on bisop for highest dollar-per-follower.",keyMetric:"$3.95 earned per YouTube view with 4K subscribers vs 110K fitness followers making <$10K/mo",mindset:"You want DPF — Dollar Per Follower. A bisop creator with 1K views can out-earn a fitness creator with 1M followers.",tips:["BISOP niches: real estate, credit repair, car detailing, SMMA, ecom, sports betting, trading, drop shipping.","SKILL niches: fitness, travel hacking, survival, relationship, instruments, content creation, languages.","People spend MORE money when there's a financial ROI. That's why bisop closes easier at higher prices.","Pick something you already know. Don't add a learning curve on top.","Your ICP-targeted videos will make more money than lifestyle content, even with fewer views."],checklist:[{id:"n1",text:"Choose 1–2 niches (no more)"},{id:"n2",text:"Identify if each niche is bisop or skill"},{id:"n3",text:"Research 5+ creators already successful in your niche"},{id:"n4",text:"Note what offers they sell and at what price"},{id:"n5",text:"Pick the niche where you have some existing knowledge"},{id:"n6",text:"Confirm niche has YouTube presence with real creator results"}],aiReview:{label:"Niche Scorer",ph:"Describe your niche choice in detail. Include:\n• The specific niche (e.g. 'sports betting tipsters on YouTube')\n• Why you chose it\n• 2–3 creator examples you found\n• What those creators currently sell\n• Your rough estimate of their monthly revenue\n• Any personal knowledge/experience in this niche",sys:`You are an expert info product operator coach. Score the niche submission (0-100) on: specificity/sub-niche depth (0-20), bisop vs skill potential (0-20, bisop=higher), proof of market—do creators already sell info products here? (0-20), DPF potential (0-20), operator knowledge fit (0-20). Bisop niches (trading, ecom, SMMA, sports betting, real estate, credit repair, car detailing) have higher Dollar Per Follower than skill niches (fitness, travel). The ideal: specific sub-niche, YouTube presence, creator sells/could sell info products, bisop preferred, operator has some knowledge. Respond ONLY with valid JSON, no markdown, no backticks: {"score":85,"grade":"B+","verdict":"One sharp sentence","strengths":["s1","s2","s3"],"weaknesses":["w1","w2"],"improvements":["Specific action 1","Specific action 2","Specific action 3"],"flags":["Red flag if any"],"dpm_estimate":"e.g. $50-200 per 1K followers"}`}},
+  {id:3,title:"Farm Leads",tag:"PROSPECTING",summary:"35–40 qualified leads per day. Platform quality matters more than volume.",keyMetric:"1,000 leads/month = $50 in VA costs @ 5 cents/lead",mindset:"Quality over quantity. One YouTube creator with 1K views/video is worth more than an Instagrammer with 100K followers.",tips:["PLATFORM TIER: S=YouTube, A=Twitter, B=Instagram, D=TikTok, F=LinkedIn (closes easy, never acts).","YouTube: best demo, highest DPF, hardest to find volume. Filter by upload date after searching niche.","Instagram: easiest. Find one creator → followed accounts → dozens of leads instantly.","Always DM on Instagram regardless of where you found them.","Send DMs 35–40/day. Space 4–6 per hour, wait an hour, repeat. One rest day/week.","Sports betting niche: 2K followers with 150 paid Discord members. Gold mine."],checklist:[{id:"l1",text:"Choose ONE platform to source leads"},{id:"l2",text:"Build lead list template: platform | link | niche | username"},{id:"l3",text:"Find 20 seed accounts in your niche"},{id:"l4",text:"Use Instagram 'followed accounts' + 'recommended' to multiply"},{id:"l5",text:"YouTube: search niche → Filter → Upload date"},{id:"l6",text:"Build initial 50+ qualified leads before outreach"},{id:"l7",text:"Set up spreadsheet or Notion to track leads"}]},
+  {id:4,title:"Optimize Your Instagram",tag:"SETUP",summary:"80% of outreach success is your Instagram profile. The DM is only 20%.",keyMetric:"80/20 Rule: 80% profile, 20% DM message",mindset:"When a creator opens your DM, they check your profile IMMEDIATELY. Bot profile = done.",tips:["REQUIRED: Meta Verified, face as profile pic, 6–9 feed posts, bio about business model.","At least 500 followers. Buy them if needed.","First name + last name as username only.","Stories are massive. Daily stories showing life/results/work spike reply rates.","Ask yourself: 'Would I respond to a DM from this profile?' Be brutally honest."],checklist:[{id:"ig1",text:"Set username to First + Last name"},{id:"ig2",text:"Upload face as profile picture"},{id:"ig3",text:"Write bio: what you do in this business model"},{id:"ig4",text:"Post 6–9 feed posts (at least 2 with your face)"},{id:"ig5",text:"Get to 500+ followers"},{id:"ig6",text:"Get Meta Verified if possible"},{id:"ig7",text:"Add results/testimonial highlight reel"},{id:"ig8",text:"Link YouTube or case study in bio"},{id:"ig9",text:"Post stories regularly (2–5/day)"}],aiReview:{label:"Profile Reviewer",ph:"Paste your exact Instagram bio here. Then answer:\n• Username (first + last name?)\n• Number of posts currently\n• Followers count\n• What's in your highlight reels\n• What link is in your bio\n• Describe 2–3 of your recent posts",sys:`You are a growth operator Instagram profile coach. The best outreach profiles: use real first+last name as username, face in profile pic, 6-9 feed posts (2+ with face), 500+ followers, Meta Verified, bio clearly states they operate info products for creators, results/testimonial highlight, one strong link, active daily stories. The 80/20 rule: 80% of DM success = profile quality. Score (0-100): username clarity (0-15), profile picture (0-15), bio clarity & social proof (0-20), feed quality & count (0-15), follower count & verification (0-15), links/highlights/stories (0-20). Respond ONLY with valid JSON: {"score":72,"grade":"C+","verdict":"One sharp sentence","strengths":["s1","s2"],"weaknesses":["w1","w2"],"improvements":["Fix 1","Fix 2","Fix 3"],"flags":["Red flag if any"],"priority_fix":"The single most important thing to fix first"}`}},
+  {id:5,title:"DM Outreach",tag:"OUTREACH",summary:"3-step: initial DM → pitch → Loom. Every extra DM is a chance to ghost. Keep it minimal.",keyMetric:"20% reply rate with proper profile + sub-38-char opening DM",mindset:"Goal: get on a call as fast as possible with as few messages as possible.",tips:["ORIGINAL WINNING DM (saturated): 'Do you sell one-on-one mentorship?' — Under 38 chars.","NEW VARIATIONS: 'Do you offer coaching calls?' / 'Is coaching part of your business?' / 'Are you coaching clients?'","WHY it works: fits in Instagram preview (38 chars). They think you're a potential buyer.","FUNNEL HACK FIRST: look at what they sell → pitch the inverse (LT → pitch HT, HT → pitch LT).","Pitch if LT: 'You could definitely be printing with a high ticket offer. Made a quick video. Cool if I send it?'","Pitch if HT: 'Are you doing anything with your unqualified leads? Could be printing with a low ticket.'","Loom: show their content on screen, Myro board with plan, revenue projection, what's needed (almost nothing).","SECRET: Upload Loom UNLISTED to YouTube. They click your channel, see all your case studies."],checklist:[{id:"dm1",text:"Generate 10+ opening DM variations under 38 characters"},{id:"dm2",text:"Set rate limits: 4–6/hour, 35–40/day, 1 rest day/week"},{id:"dm3",text:"Build Myro board template for Loom videos"},{id:"dm4",text:"For each lead: funnel hack what they currently sell"},{id:"dm5",text:"Identify gap: do they need HT or LT complement?"},{id:"dm6",text:"Record first Loom video for a real lead"},{id:"dm7",text:"Upload Loom videos UNLISTED to YouTube"},{id:"dm8",text:"Set up Calendly for booking"}],aiReview:{label:"DM Script Reviewer",ph:"Paste your DM opening message(s) here. Include:\n• Initial outreach message (must be under 38 chars — count carefully)\n• Pitch message (after they reply)\n• Brief description of your Loom video script/outline\n• A specific example: which creator would you target and what exactly would you say?",sys:`You are a cold outreach expert for info product operators. Rules: (1) INITIAL DM must be under 38 characters including spaces and punctuation. Must look like a potential buyer asking a genuine question, NOT a pitch. Never start with "Hey" followed by name and paragraphs. (2) PITCH MESSAGE should identify the gap (they sell LT = pitch HT, they sell HT = pitch LT, nothing = pitch any). End with "Made a quick video breaking it down. Cool if I send it over?" (3) LOOM should show their actual content on screen, Myro board with specific plan, revenue projections, what's needed from them (almost nothing), mention cut briefly at end. 2-3 minutes max. Score (0-100): initial message length & curiosity—under 38 chars, looks like buyer (0-30), pitch message gap identification (0-25), pitch message naturalness (0-20), loom video structure (0-25). Respond ONLY with valid JSON: {"score":68,"grade":"C+","verdict":"One sharp sentence","strengths":["s1","s2"],"weaknesses":["w1","w2"],"improvements":["Fix 1","Fix 2","Fix 3"],"flags":["Red flag"],"char_count":"X chars — PASS or FAIL","fatal_error":"If initial DM is over 38 chars or sounds like a pitch, call it out as a fatal error here"}`}},
+  {id:6,title:"Automate Outreach",tag:"SYSTEMS",summary:"$290/month VA system → 8–10 qualified creators per month on autopilot.",keyMetric:"$290/month total cost → 8 qualified creators",mindset:"You should not be sending DMs manually. Build the system once, run it forever.",tips:["VA #1 Lead Finder: 5 cents/lead. Platform | link | niche | username.","VA #2 DM Sender: logged into your IG. 35 DMs/day, spaced. 10 cents/DM + 10 cents/pitch.","VA #3 Myro Builder: funnel hacks and builds board. $2/board.","YOU record the Loom (or trusted team member). Then it moves to Primary tab and you take over.","MATH: $50 leads + $100 DMs + $120 Myro boards + $20 misc = $290/month.","Result: 12 booked calls → 10 showed → 8 new creators (80% close because partnership, not sale)."],checklist:[{id:"auto1",text:"Hire VA #1 for lead finding"},{id:"auto2",text:"Hire VA #2 for DM sending (trust with IG access)"},{id:"auto3",text:"Write SOP for lead finding in your niche"},{id:"auto4",text:"Write SOP for DM sending with rate limits"},{id:"auto5",text:"Write SOP for pitch replies"},{id:"auto6",text:"Hire VA #3 for Myro board building"},{id:"auto7",text:"Configure IG DM tabs: hot leads in Primary only"},{id:"auto8",text:"Test with 50 leads before scaling to 1,000/month"},{id:"auto9",text:"Track: sends → replies → pitches → Looms → calls booked"}]},
+  {id:7,title:"Close the Creator",tag:"SALES",summary:"Partnership formation, not a sales call. If you sent a Loom, they're 90% closed.",keyMetric:"80% close rate on creator calls",mindset:"Never think of this as a closing call. You are forming a business partnership. The pressure is almost zero.",tips:["1-CALL CLOSE: Simple offers. Discuss plan, percentage, sign contract same day.","2-CALL CLOSE (preferred): Gather info call 1. Build Myro plan. Present call 2. Close.","2-call if complex OR you sense skepticism — saying 'let me put a plan together' instantly relaxes them.","INFO TO GATHER: What they sell | funnel | last month revenue | worked with operator? | DM requests?","CLOSE ON REV SHARE, NOT UPFRONT. Target: 30%. Minimum: 15–20%.","48-hour max booking window. Same-day bookings = peak interest.","Personal text 2–3 hours before call from your own number."],checklist:[{id:"cc1",text:"Set up Calendly with 48-hour max future booking"},{id:"cc2",text:"Prepare discovery questions for call"},{id:"cc3",text:"Research creator's content before call"},{id:"cc4",text:"Have Myro board plan ready"},{id:"cc5",text:"Decide rev share target (aim 30%, min 15-20%)"},{id:"cc6",text:"Send contract SAME DAY within 2–3 hours"}]},
+  {id:8,title:"Set the Contract",tag:"LEGAL",summary:"Contracts keep both parties aligned. ChatGPT to generate, DocuSign to send.",keyMetric:"Same-day contract send after every close",mindset:"You'll probably never sue each other. The contract just ensures everyone understands the deal.",tips:["Use ChatGPT to generate the contract. It works fine for this level.","Send within a couple hours of closing — not instantly (looks like a template).","MUST INCLUDE: cancellation clause, percentages, upfront cost, termination notice (30-60 days), NDA, software costs.","Software costs: the creator pays ALL (ClickFunnels, TypeForm, Calendly, etc.).","Use DocuSign or Dropbox Sign for e-signature. ~$10/month."],checklist:[{id:"ct1",text:"Generate contract template using ChatGPT"},{id:"ct2",text:"Set up DocuSign or Dropbox Sign"},{id:"ct3",text:"Confirm contract has all required clauses"},{id:"ct4",text:"Send contract same day of close"},{id:"ct5",text:"Confirm creator signs before starting work"},{id:"ct6",text:"Keep record of all active contracts"}]},
+  {id:9,title:"Payment Processing & Financing",tag:"MONEY",summary:"FanBasis and WAP. Financing is the backbone of high-ticket. Don't sleep on it.",keyMetric:"25%+ of revenue on million-dollar offers comes from buy-now-pay-later",mindset:"Not offering financing = leaving a massive chunk of your market on the table.",tips:["TWO PROCESSORS: FanBasis and WAP (whop.com). Use both for max financing options.","All money flows into processor → split to 2 bank accounts OR creator wires you monthly.","HOW FINANCING WORKS: They can't pay $5K → financing company pays you full $5K → buyer pays company monthly.","OPTIONS: Klarna, Afterpay, Zip, ClearPay, Splitit. Different limits, countries, requirements.","Zip & Afterpay: easiest to get for starters. Splitit: up to $65K (requires history).","U.S. + 18+ = can get financed for almost anything. That's why you ask location and age in TypeForm."],checklist:[{id:"pp1",text:"Create FanBasis account"},{id:"pp2",text:"Create WAP account (whop.com)"},{id:"pp3",text:"Get approved for Zip + Afterpay minimum"},{id:"pp4",text:"Set up payment split or monthly wire"},{id:"pp5",text:"Get dashboard access to verify revenue"},{id:"pp6",text:"Test payment link end-to-end before launch"},{id:"pp7",text:"Understand in-house payment plans"}]},
+  {id:10,title:"Create the Offer",tag:"OFFER",summary:"Build an ecosystem: HT + LT. Lead offer depends on creator's existing setup and audience quality.",keyMetric:"High ticket: $2K–$8K upfront. Low ticket: $20–$100/month.",mindset:"Don't reinvent the wheel. Find what's already working in the niche and model it. Market research first.",tips:["MARKET RESEARCH FIRST: Find similar creators. What are they selling? Model that.","HIGH TICKET: $2K–$8K, 1-on-1 or group coaching, time frame (3–6 months). Needs a no-brainer guarantee.","LOW TICKET: $20–$100/month community or $97–$197 one-time. Discord or School.","IF CREATOR SELLS HT → build them a LT to capture unqualified leads.","IF CREATOR SELLS LT → build them a HT to upsell paying subscribers.","THE GUARANTEE is the most important part. Black-and-white, achievable, win-win.","PRICE HINT not price drop: 'multi-4 figure investment' not '$5,000' in VSSL."],checklist:[{id:"of1",text:"Research 5+ competitors — note offers, prices, guarantees"},{id:"of2",text:"Get creator's demographic data: region, age, platform"},{id:"of3",text:"Decide: HT or LT as top of funnel?"},{id:"of4",text:"Design core offer: included, time frame, price"},{id:"of5",text:"Create a no-brainer guarantee (black-and-white)"},{id:"of6",text:"Identify complement: if HT → plan LT, vice versa"},{id:"of7",text:"Optionally: run a test TypeForm before building"},{id:"of8",text:"Document full offer before building"}],aiReview:{label:"Offer Scorer",ph:"Describe your offer in detail. Include:\n• High ticket price and exactly what's included\n• Low ticket price and what's included (if any)\n• Your guarantee — exactly what do you promise?\n• Creator's niche and audience quality/size\n• What competitors in this niche are charging\n• Your rev share % with the creator",sys:`You are an expert info product offer architect. A strong offer has: high ticket ($2K-$8K, 1-on-1 or group coaching, 3-6 month time frame) + low ticket ($20-$100/month community or $97-$197 one-time). They complement each other. The MOST critical element is the GUARANTEE which must be: specific (not vague like "we'll work hard"), black-and-white (not subjective), achievable, win-win for creator and buyer. Weak: "100% money back if not satisfied". Strong: "X result in Y days or we continue free" or "first paying client in 30 days guaranteed". Score (0-100): pricing & structure logic (0-20), guarantee strength—black-and-white? specific? achievable? (0-25), ecosystem completeness—HT + LT plan (0-20), competitive positioning (0-15), fulfilment feasibility (0-20). Respond ONLY with valid JSON: {"score":75,"grade":"B","verdict":"One sharp sentence","strengths":["s1","s2","s3"],"weaknesses":["w1","w2"],"improvements":["Fix 1","Fix 2","Fix 3"],"flags":["Red flag"],"guarantee_score":"X/25 — note on quality","price_verdict":"Is price right for stated audience?"}`}},
+  {id:11,title:"Low Ticket Setup",tag:"BUILD",summary:"Low ticket = community. Discord for active communities. School for static courses.",keyMetric:"$20–$100/month with weekly group calls = minimum viable low ticket",mindset:"Low ticket builds MRR and creates a pipeline of future high-ticket customers.",tips:["DISCORD vs SCHOOL: Discord for communities with live/updated info. School for course-only content.","MUST HAVE: weekly group calls (the #1 reason people stay), consumable on join (prevents instant cancel).","Connect Discord to FanBasis or WAP to auto-add/remove roles on subscribe/cancel. Zero manual work.","5 key Discord permissions per channel: view, send messages, create threads (turn OFF), reactions, read history (ON).","#1 thing that kills low-ticket communities: no weekly calls."],checklist:[{id:"lt1",text:"Choose platform: Discord (dynamic) or School (static)"},{id:"lt2",text:"Set up Discord server or School group"},{id:"lt3",text:"Configure channel permissions (5 types)"},{id:"lt4",text:"Connect Discord to processor for auto role management"},{id:"lt5",text:"Schedule weekly group calls with creator"},{id:"lt6",text:"Create consumable for new members (prevents instant cancel)"},{id:"lt7",text:"Plan what gets updated regularly for retention"},{id:"lt8",text:"Test full join flow"}]},
+  {id:12,title:"Build the Landing Page",tag:"BUILD",summary:"Not always needed. When you do: VSSL is everything. One link. No choices.",keyMetric:"One link in bio. Zero confusion. One path.",mindset:"The landing page exists to deliver the VSSL. Everything else is secondary.",tips:["HIGH TICKET: often NO landing page needed. Straight TypeForm can work perfectly.","LOW TICKET: always needs a landing page.","Use ClickFunnels. One column for main section.","PAGE: Hero text → VSSL → CTA button → Video testimonials → Screenshot wall.","ONE LINK RULE: one blue link in all descriptions. Multiple links kill conversions.","POPUPS don't hurt conversions. Multiple links DO.","Build both mobile and desktop versions in ClickFunnels."],checklist:[{id:"lp1",text:"Decide: landing page or straight to TypeForm?"},{id:"lp2",text:"Create ClickFunnels account (creator pays)"},{id:"lp3",text:"Build page: hero text → VSSL → CTA → testimonials"},{id:"lp4",text:"Write compelling hero text (<10 words, main selling point)"},{id:"lp5",text:"Set up popup for lead magnet on same page"},{id:"lp6",text:"Build mobile version"},{id:"lp7",text:"Connect custom domain"},{id:"lp8",text:"Test full flow end-to-end"}]},
+  {id:13,title:"Create the VSSL",tag:"CONTENT",summary:"Video Sales Letter = the most important funnel asset. Sells them before the call.",keyMetric:"80% problem/desire, 20% mechanism. By end: they already want to buy.",mindset:"By the time they finish the VSSL, they should already want to buy. The call is just logistics.",tips:["5 COMPONENTS: Demographic callout → Viewer gain → Storytelling (80%) → Pitch + objections (20%) → CTA.","STORYTELLING (80%): Creator's life story, where they were vs now, hit the viewer's pain points hard.","THE PITCH (20%): What's included, price HINT not drop ('multi-4 figure investment'), CTA.","OBJECTION HANDLING: ChatGPT → paste offer → ask for all buyer objections → address in VSSL.","DETAILS KILL DEALS: Don't over-explain complex steps. Make it sound achievable.","LENGTH: 7–12 min low quality audience. 10–30 min for YouTube.","USE LaunchSmith.ai: feed it creator info, it writes the entire VSSL script."],checklist:[{id:"vs1",text:"Research creator's story: background, struggle, breakthrough"},{id:"vs2",text:"List 5 main pain points of ideal customer"},{id:"vs3",text:"ChatGPT: generate all buyer objections for your offer"},{id:"vs4",text:"Outline VSSL: callout → gain → story → pitch → objections → CTA"},{id:"vs5",text:"Generate full script (LaunchSmith or ChatGPT)"},{id:"vs6",text:"Refine with creator's voice and specific results"},{id:"vs7",text:"Film VSSL (talking head, edited)"},{id:"vs8",text:"Upload VSSL to YouTube (public)"},{id:"vs9",text:"Embed on landing page or link from TypeForm"}],aiReview:{label:"VSSL Outline Reviewer",ph:"Paste your VSSL outline or full script here. Include:\n• Who you call out at the start\n• The story / background section summary\n• What pain points you hit\n• How you present the offer and price\n• Which objections you address\n• The call to action\n• Approximate length",sys:`You are a video sales letter expert for info products. A great VSSL: (1) Demographic callout — identifies exact viewer immediately, (2) Viewer gain — promises a specific revelation worth watching for, (3) Storytelling (80% of video) — creator's origin story, emotional connection, pain points hammered, (4) Pitch (20%) — what's included, price HINT not DROP ("multi-4 figure" not "$5,000"), what's needed from them (almost nothing), (5) Objection handling — top 5-7 objections addressed before they arise, (6) CTA — clear next step. Key rules: 80% emotion/problem/desire, 20% mechanism. Details kill deals. Testimonials flow naturally into story. Length: 10-30 min for HQ YouTube audience. Score (0-100): demographic callout specificity (0-15), storytelling depth & emotional resonance (0-25), pitch clarity & price handling (0-20), objection handling completeness (0-20), CTA clarity (0-10), flow & pacing (0-10). Respond ONLY with valid JSON: {"score":70,"grade":"C+","verdict":"One sharp sentence","strengths":["s1","s2"],"weaknesses":["w1","w2"],"improvements":["Fix 1","Fix 2","Fix 3"],"flags":["Red flag"],"missing_objections":"Any obvious objections not addressed","emotional_score":"X/25 — note on storytelling quality"}`}},
+  {id:14,title:"TypeForm Setup",tag:"BUILD",summary:"Qualifying filter + funnel. 6–8 questions. Contact info first. Logic routes broke leads away.",keyMetric:"30–66% completion. 38% qualified. 92% book after qualifying.",mindset:"TypeForm creates exclusivity AND filters out people who waste your closer's time.",tips:["QUESTION ORDER: Contact info → Basic info (location, age) → Niche questions → Budget → Income/goals → Commitment.","LOCATION + AGE: Know if they can get financed. US + 18+ = high qualification for financing.","BUDGET QUESTION: Don't ask 'how much can you invest?' Frame as: 'This is a multi-4 figure investment. Are you in a position to invest in yourself at this level?'","USE LOGIC: No budget → rejection screen. Qualified → Calendly. 48-HOUR BOOKING MAX.","TIME TO COMPLETE TARGET: Under 10 minutes.","PARTNERS QUESTION: 'Will you be attending with your business partner?' Prevents the objection."],checklist:[{id:"tf1",text:"Create TypeForm ($59/month — creator pays)"},{id:"tf2",text:"Build 6–8 questions: contact → basic → niche → budget → income → commitment"},{id:"tf3",text:"Set up logic: qualified → Calendly, unqualified → rejection"},{id:"tf4",text:"Add LT downell path for unqualified (if applicable)"},{id:"tf5",text:"Connect Calendly with 48-hour max booking"},{id:"tf6",text:"Set confirmation page with VSSL"},{id:"tf7",text:"Test full flow end-to-end"},{id:"tf8",text:"Set up instant notifications on new fills"}],aiReview:{label:"TypeForm Reviewer",ph:"List all your TypeForm questions here in order. For each question:\n• Exact question text\n• Answer options (if multiple choice)\n• What happens based on each answer (the logic)\n\nAlso note: what does the unqualified person see?",sys:`You are a TypeForm funnel optimization expert for high-ticket info products. The perfect TypeForm for a $2K-$8K offer: Q1-3: Contact info (name, phone, email) + location + age + Instagram handle. Location/age determine financing eligibility—US + 18+ = can get financed. Q4-5: Niche-specific experience + struggles (tells you how to frame the call). Q6: Budget question—NEVER ask "how much money do you have." Frame as "This program is a multi-4 figure investment. Are you in a financial position to invest in yourself at this level?" with Yes/Yes with financing/No options. Q7-8: Current income + desired income + commitment question + partner question ("Will you be attending with your business partner if applicable?"). Logic: budget "No" → rejection page. All others → Calendly. Score (0-100): contact info completeness (0-15), location/age for financing (0-20), budget question framing—honest without being salesy (0-20), logic and filtering quality (0-25), partner/commitment question (0-10), overall length (0-10). Respond ONLY with valid JSON: {"score":80,"grade":"B","verdict":"One sharp sentence","strengths":["s1","s2"],"weaknesses":["w1","w2"],"improvements":["Fix 1","Fix 2","Fix 3"],"flags":["Red flag"],"missing_questions":"Any critical questions forgotten","budget_question_verdict":"Pass/Fail — brief note"}`}},
+  {id:15,title:"Post-Booking System",tag:"SYSTEMS",summary:"After booking: show up pre-sold. Personal text + reminders = 80%+ show rate.",keyMetric:"48-hour window + personal text = 80–88% show-up rate",mindset:"The confirmation page is where you convert a lead into a buyer BEFORE the call starts.",tips:["CONFIRMATION PAGE: After booking → 'Watch this video before our call' + VSSL.","For HT: buyer needs 1–2 HOURS of content before buying. YouTube beats Instagram here.","EMAIL REMINDERS: 24hr → 6hr → 1hr before. Auto-send through Calendly.","PERSONAL TEXT: From closer. 2–3 hours before. With profile picture. 4x show rates.","iMessage trick: share message with profile picture so it appears in their iMessage thread.","GOAL: every person on the call should already want to buy. Call = just logistics."],checklist:[{id:"pb1",text:"Build confirmation page with VSSL"},{id:"pb2",text:"Set Calendly to redirect to confirmation page"},{id:"pb3",text:"Configure email reminders: 24hr + 6hr + 1hr"},{id:"pb4",text:"Configure SMS reminders through Calendly"},{id:"pb5",text:"Set up personal text protocol (closer texts 2–3hrs before)"},{id:"pb6",text:"Ensure closer has profile picture in iMessage"},{id:"pb7",text:"Track show-up rates weekly"}]},
+  {id:16,title:"Sales Reps",tag:"TEAM",summary:"Don't hire a closer until 5+ qualified calls/day. Before that: creator takes the calls.",keyMetric:"5+ qualified bookings/day = time to hire closer",mindset:"A closer trades time for money. You trade knowledge for percentages.",tips:["TWO ROLES: Setters (~5% per close) and Closers (8–12% per close, avg 10%).","Do NOT hire until 5 qualified bookings/day. Not worth it before that.","Until then: CREATOR takes the calls. Good guarantee + good offer = no pro closer needed.","FINDING REPS: Not websites/Discords — use network and referrals.","Vet thoroughly. A bad closer who leaves after a month is worse than no closer.","Sales Manager: only when doing multi-6 figures/month with multiple closers."],checklist:[{id:"sr1",text:"Confirm 5+ qualified calls/day before hiring"},{id:"sr2",text:"Until then: creator takes all calls"},{id:"sr3",text:"Find closers through network, not job boards"},{id:"sr4",text:"Vet: past offers, close rates, niche experience"},{id:"sr5",text:"Agree on commission: 8–12%"},{id:"sr6",text:"Give closer full CRM access"},{id:"sr7",text:"Bring on setter (5%) when closer is hired"},{id:"sr8",text:"Set KPIs: calls/day, close rate, show rate"}]},
+  {id:17,title:"Sales Framework",tag:"SYSTEMS",summary:"Full pipeline: TypeForm → qualified → booked → call → close. Every scenario covered.",keyMetric:"45% close rate ascension funnel. 25–30% typical cold traffic.",mindset:"Every lead is valuable. No-shows and non-buyers convert with the right follow-up.",tips:["NON-BOOKERS: Contact within 5–10 minutes. 'Did you need a different time?' Strike while hot.","NON-CLOSERS: $500 deposit + schedule next call. OR agree follow-up date. Hit with testimonials immediately.","NO-SHOWS: 'Hey, I saw you missed our call, let's reschedule!' Don't guilt them.","TESTIMONIALS AS AMMO: Creator posts result RIGHT AFTER prospect says 'I need to think.' Works every time.","UNQUALIFIED: Check if US + 18+. If yes → setter reaches out manually for financing.","GHOST LEADS: Follow up 3x over 2 weeks with value. Then release."],checklist:[{id:"sf1",text:"Map full pipeline for your specific offer"},{id:"sf2",text:"Set who contacts non-bookers within 10 mins"},{id:"sf3",text:"Create follow-up sequences: no-show/didn't close/deposit"},{id:"sf4",text:"Build testimonials library"},{id:"sf5",text:"Tell creator: post a result when prospect is on the fence"},{id:"sf6",text:"Set up email sequences (LaunchSmith/ChatGPT)"},{id:"sf7",text:"Generate DM + phone setting scripts with AI"},{id:"sf8",text:"Track close rates weekly"}]},
+  {id:18,title:"CRM Setup",tag:"SYSTEMS",summary:"Every qualified lead tagged, tracked, in a follow-up sequence. Close.com or GHL.",keyMetric:"Zero leads fall through the cracks",mindset:"If it's not in the CRM, it doesn't exist.",tips:["CLOSE.COM: Cleanest UI, most operators use for real sales teams.","GHL: Ugly but powerful. Many creators already use it — if they do, use their setup.","NOTION: Valid for small offers with no sales team.","PIPELINES: TypeForm Fill → Booked → Showed → Closed → Upsell.","Keep it simple until you need complexity. All CRM costs paid by creator."],checklist:[{id:"crm1",text:"Choose: Close.com (team) / GHL (creator has it) / Notion (solo)"},{id:"crm2",text:"Set up pipeline stages matching funnel"},{id:"crm3",text:"Create lead tags: qualified/unqualified/no-show/deposit/closed"},{id:"crm4",text:"Set up notifications when new TypeForm fill comes in"},{id:"crm5",text:"Train setter and closer on CRM workflow"},{id:"crm6",text:"Review CRM weekly: find stuck leads, trigger follow-ups"},{id:"crm7",text:"Creator pays for CRM subscription"}]},
+  {id:19,title:"Hype the Launch",tag:"GROWTH",summary:"You don't NEED a launch. If you do one: Instagram only, 1 week buildup.",keyMetric:"Soft launch into existing content usually outperforms hyped launch",mindset:"Most work is complete post-setup. Let the content and funnel do the work.",tips:["ONLY launch if: (a) creator wasn't selling anything, OR (b) launching HT to existing LT subscribers.","DON'T launch if they already have an HT offer. Just plug in and let it compound.","BUILDUP: Daily IG stories (3–5/day) teasing the product for 1 week.","Use ManyChat: CTA in stories/lives/reels → DM automation → collect phone + email.","CLOSE FRIEND STORY: Bulk-add all followers. Stories go to front. 4x story views.","DAY OF LAUNCH: email blast to everyone who opted in."],checklist:[{id:"hl1",text:"Decide: is a formal launch necessary?"},{id:"hl2",text:"Plan 1-week Instagram story sequence"},{id:"hl3",text:"Set up ManyChat keyword automation"},{id:"hl4",text:"Build email/SMS list from pre-launch buildup"},{id:"hl5",text:"Email blast on launch day"},{id:"hl6",text:"Have setter DM all pre-launch opt-ins"},{id:"hl7",text:"Post-launch: plug into organic content, drop 'launch energy'"}]},
+  {id:20,title:"Retain Your Clients",tag:"OPS",summary:"After launch, most work is done. Job = make creator feel you're always busy while mostly maintaining.",keyMetric:"Creator never wonders what you're doing or why you deserve your percentage",mindset:"You are a business partner, not an employee. Act like one.",tips:["ALWAYS have action steps for the creator. No action steps = they wonder why you get a cut.","Deliver a roadmap after signing. Shows them the full plan.","WEEKLY CALL: non-negotiable. Even 15 minutes keeps the relationship strong.","DAILY COMMUNICATION: text like a business partner. Watch their content. Comment.","CONTRACT REVISITS: every few months, if you've added value → negotiate more equity.","WHY PEOPLE FAIL: treat creators like agency clients. Slow responses, no initiative.","2–3 creators is the sweet spot. Go deep on a few, not shallow on many."],checklist:[{id:"rc1",text:"Deliver written roadmap within first week of signing"},{id:"rc2",text:"Schedule recurring weekly call"},{id:"rc3",text:"Text creator daily — watch content, comment, engage"},{id:"rc4",text:"Send KPI report weekly"},{id:"rc5",text:"Always have next action step ready for creator"},{id:"rc6",text:"Revisit contract when you've demonstrably grown their offer"},{id:"rc7",text:"Limit yourself to 2–3 active creators"}]},
+  {id:21,title:"Organic Socials Framework",tag:"GROWTH",summary:"Even if 100% of leads come from YouTube, creator needs all 4 platforms as nurturing tools.",keyMetric:"Being on all 4 platforms multiplies conversions without extra lead gen effort",mindset:"Someone sees them on YouTube, finds them on Twitter, sees a result on Instagram → sold before they book.",tips:["THE BIG 4: Instagram, Twitter, TikTok, YouTube. LinkedIn doesn't matter.","INSTAGRAM: 2–5 stories/day, 1 live/week, 5–7 reels/week, close friends story for big CTAs.","TWITTER: 30–50 replies/day to relevant accounts, 2–3 tweets/day. Replies >> tweets for growth.","TWITTER HACK: Reply to big accounts → they follow you → tweet → they like it → for you page of their followers.","TIKTOK LIVES go on For You page (not just followers). 6-hour live → 4,000+ random viewers.","YOUTUBE: 1–3 videos/week, min 10 minutes, quality > quantity.","NEVER change what's working on their main platform."],checklist:[{id:"os1",text:"Audit creator's current social presence"},{id:"os2",text:"Optimize profiles on all missing platforms"},{id:"os3",text:"Deliver social media KPI doc"},{id:"os4",text:"Set up ManyChat keyword on Instagram"},{id:"os5",text:"Establish story schedule: 2–5/day minimum"},{id:"os6",text:"Cross-post reels to TikTok"},{id:"os7",text:"Set up Twitter reply routine: 30–50/day"},{id:"os8",text:"Track which platform drives most TypeForm fills monthly"}]},
+  {id:22,title:"YouTube Strategy",tag:"GROWTH",summary:"Most powerful funnel in info products. Session time > watch time. Every video points to the VSSL.",keyMetric:"$3.95+ per view. 15K views = $62K profit. Algorithm rewards session time.",mindset:"YouTube isn't just a lead source. The algorithm pushes your videos to your exact ICP if done right.",tips:["THE FUNNEL: Top of funnel (lifestyle) → links only to → VSSL → TypeForm.","TOP FUNNEL videos do NOT link to TypeForm. They link ONLY to the VSSL. Boosts session time.","SESSION TIME > WATCH TIME: YouTube cares how long people stay on the platform, not just your video.","VSSL ON YOUTUBE: public video. TypeForm link ONLY in VSSL description.","HOW IT WORKS: VSSL gets organic views because YouTube identifies your ICP from who watches it after top-funnel videos.","RESULT: All your top-funnel videos get pushed more because session time increases across the channel.","YOUR OWN MYRO VIDEOS: Get both operators AND creators inbound. Same content, two audiences."],checklist:[{id:"yt1",text:"Identify top-of-funnel videos (lifestyle/viral)"},{id:"yt2",text:"Upload VSSL as PUBLIC YouTube video"},{id:"yt3",text:"TypeForm link ONLY in VSSL description"},{id:"yt4",text:"Add 'Watch this next' + VSSL link in ALL top-funnel video descriptions"},{id:"yt5",text:"Create value-based bottom-of-funnel content"},{id:"yt6",text:"Optimize YouTube profile (name, face, one link)"},{id:"yt7",text:"Track which videos send most traffic to VSSL"},{id:"yt8",text:"Consider your own Myro breakdown videos for inbound creator clients"}]},
+  {id:23,title:"Paid Ads",tag:"SCALE",summary:"Only after organic works. Two things work: Meta ads to followers, broad ads with massive organic reach.",keyMetric:"$1 in → $4 out at good ROAS. Only after organic funnel converts.",mindset:"Paid ads are fuel on a fire that's already burning. Don't try to start the fire with ads.",tips:["DON'T TOUCH until organic funnel converts well.","WHAT WORKS #1: Meta ads to Instagram FOLLOWERS. They know the creator. High conversion.","WHAT WORKS #2: Broad meta ads — ONLY if creator gets 10M+ organic views/month.","WHAT DOESN'T: Cold audiences who've never seen the creator. Doesn't convert.","ALWAYS OUTSOURCE. Don't try to learn ads while managing everything else.","AD GOAL: impressions + DMs. Setter converts. Ad gets eyeballs."],checklist:[{id:"pa1",text:"Confirm organic funnel converts BEFORE adding paid"},{id:"pa2",text:"Creator has strong Instagram (1K+ followers, active)"},{id:"pa3",text:"Setters ready to handle increased DM volume"},{id:"pa4",text:"Find paid ads specialist with info product experience"},{id:"pa5",text:"Start: Meta ads to existing followers only"},{id:"pa6",text:"Test budget ($500–$1K), measure CPL before scaling"},{id:"pa7",text:"Broad ads: confirm 10M+ organic views/month first"}]}
+];
+
+const scoreColor=s=>s>=85?'#44dd88':s>=70?'#c8f135':s>=50?'#ffaa44':'#ff5555';
+const fmt=d=>new Date(d).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+const GRADE_COLOR={'A+':'#44dd88','A':'#44dd88','A-':'#44dd88','B+':'#8aff5e','B':'#c8f135','B-':'#c8f135','C+':'#ffaa44','C':'#ffaa44','C-':'#ffaa44','D':'#ff5555','F':'#ff5555'};
+
+function Ring({pct,size=40,stroke=3}){
+  const r=(size-stroke*2)/2,circ=2*Math.PI*r,off=circ-(pct/100)*circ;
+  const col=pct===100?'#44dd88':pct>=60?'#c8f135':'#ffaa44';
+  return<svg width={size} height={size} style={{transform:'rotate(-90deg)',flexShrink:0}}><circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#2a2a35" strokeWidth={stroke}/><circle cx={size/2} cy={size/2} r={r} fill="none" stroke={col} strokeWidth={stroke} strokeDasharray={circ} strokeDashoffset={off} style={{transition:'stroke-dashoffset 0.4s'}}/></svg>;
+}
+
+function AIReview({stepId,cfg,saved,onSave,addAct}){
+  const[text,setText]=useState('');
+  const[loading,setLoading]=useState(false);
+  const[result,setResult]=useState(saved||null);
+  const[open,setOpen]=useState(!!saved);
+  const[err,setErr]=useState('');
+
+  const submit=async()=>{
+    if(!text.trim()||loading)return;
+    setLoading(true);setErr('');
+    addAct({type:'review_submitted',stepId,preview:text.slice(0,120),ts:Date.now()});
+    try{
+      const res=await fetch('/.netlify/functions/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:cfg.sys,messages:[{role:'user',content:text}]})});
+      const data=await res.json();
+      const raw=data.content?.find(b=>b.type==='text')?.text||'{}';
+      let parsed;
+      try{parsed=JSON.parse(raw);}catch{const m=raw.match(/\{[\s\S]*\}/);parsed=m?JSON.parse(m[0]):{score:0,grade:'?',verdict:'Parse error.',strengths:[],weaknesses:[],improvements:[]};}
+      const final={...parsed,submission:text,ts:Date.now()};
+      setResult(final);onSave(stepId,final);
+      addAct({type:'review_scored',stepId,score:final.score,grade:final.grade,ts:Date.now()});
+    }catch(e){setErr('API error — check network.');}
+    setLoading(false);
+  };
+
+  return(
+    <div style={{marginTop:24}}>
+      <button onClick={()=>setOpen(!open)} style={{display:'flex',alignItems:'center',gap:10,width:'100%',padding:'13px 16px',background:'rgba(85,153,255,0.07)',border:'1px solid rgba(85,153,255,0.25)',borderRadius:10,cursor:'pointer',textAlign:'left'}}>
+        <div style={{fontSize:13,fontWeight:500,color:'var(--info)',flex:1}}>🤖 AI Review: {cfg.label}</div>
+        {result&&<div style={{fontFamily:'var(--mono)',fontSize:11,color:scoreColor(result.score),background:`${scoreColor(result.score)}20`,padding:'3px 10px',borderRadius:20,border:`1px solid ${scoreColor(result.score)}40`}}>{result.score}/100 · {result.grade}</div>}
+        <div style={{fontFamily:'var(--mono)',fontSize:10,color:'var(--text3)'}}>{open?'▲':'▼'}</div>
+      </button>
+      {open&&<div style={{border:'1px solid rgba(85,153,255,0.2)',borderTop:'none',borderRadius:'0 0 10px 10px',padding:'18px 20px',background:'rgba(85,153,255,0.04)'}}>
+        {!result?<>
+          <div style={{fontSize:12,color:'var(--text3)',marginBottom:10,lineHeight:1.6}}>Submit your actual work and get a score, strengths, weaknesses, and specific improvements from AI.</div>
+          <textarea value={text} onChange={e=>setText(e.target.value)} placeholder={cfg.ph} style={{minHeight:130,marginBottom:10}}/>
+          {err&&<div style={{fontSize:12,color:'var(--danger)',marginBottom:8}}>{err}</div>}
+          <button onClick={submit} disabled={!text.trim()||loading} style={{padding:'9px 20px',background:!text.trim()||loading?'var(--bg5)':'var(--info)',border:'none',borderRadius:8,cursor:!text.trim()||loading?'default':'pointer',color:!text.trim()||loading?'var(--text3)':'#fff',fontSize:13,fontWeight:500,transition:'all 0.15s'}}>
+            {loading?'Analyzing...':'Submit for AI Review →'}
+          </button>
+        </>:<>
+          <div style={{display:'flex',alignItems:'center',gap:14,marginBottom:16,padding:'12px 16px',background:'var(--bg4)',borderRadius:10,border:'1px solid var(--border)'}}>
+            <div style={{textAlign:'center',flexShrink:0}}>
+              <div style={{fontSize:30,fontWeight:600,fontFamily:'var(--mono)',color:scoreColor(result.score)}}>{result.score}</div>
+              <div style={{fontSize:13,color:GRADE_COLOR[result.grade]||'var(--text2)',fontFamily:'var(--mono)',fontWeight:500}}>{result.grade}</div>
+            </div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,color:'var(--text)',fontWeight:500,marginBottom:3}}>{result.verdict}</div>
+              <div style={{fontSize:10,color:'var(--text3)',fontFamily:'var(--mono)'}}>{fmt(result.ts)}</div>
+            </div>
+          </div>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
+            <div style={{background:'rgba(68,221,136,0.06)',border:'1px solid rgba(68,221,136,0.2)',borderRadius:8,padding:'12px'}}>
+              <div style={{fontSize:9,color:'var(--success)',fontFamily:'var(--mono)',letterSpacing:1,marginBottom:8}}>STRENGTHS</div>
+              {(result.strengths||[]).map((s,i)=><div key={i} style={{fontSize:12,color:'var(--text2)',marginBottom:4,lineHeight:1.5}}>✓ {s}</div>)}
+            </div>
+            <div style={{background:'rgba(255,85,85,0.06)',border:'1px solid rgba(255,85,85,0.2)',borderRadius:8,padding:'12px'}}>
+              <div style={{fontSize:9,color:'var(--danger)',fontFamily:'var(--mono)',letterSpacing:1,marginBottom:8}}>WEAKNESSES</div>
+              {(result.weaknesses||[]).map((w,i)=><div key={i} style={{fontSize:12,color:'var(--text2)',marginBottom:4,lineHeight:1.5}}>✗ {w}</div>)}
+            </div>
+          </div>
+          <div style={{background:'rgba(200,241,53,0.06)',border:'1px solid rgba(200,241,53,0.2)',borderRadius:8,padding:'12px',marginBottom:12}}>
+            <div style={{fontSize:9,color:'var(--accent)',fontFamily:'var(--mono)',letterSpacing:1,marginBottom:8}}>IMPROVEMENTS</div>
+            {(result.improvements||[]).map((imp,i)=><div key={i} style={{fontSize:12,color:'var(--text)',marginBottom:6,lineHeight:1.6,display:'flex',gap:8}}><span style={{color:'var(--accent)',flexShrink:0,fontFamily:'var(--mono)',fontSize:9,paddingTop:2}}>{String(i+1).padStart(2,'0')}</span><span>{imp}</span></div>)}
+          </div>
+          {(result.flags||[]).length>0&&<div style={{background:'rgba(255,170,68,0.08)',border:'1px solid rgba(255,170,68,0.25)',borderRadius:8,padding:'12px',marginBottom:12}}>
+            <div style={{fontSize:9,color:'var(--warn)',fontFamily:'var(--mono)',letterSpacing:1,marginBottom:8}}>⚠ FLAGS</div>
+            {result.flags.map((f,i)=><div key={i} style={{fontSize:12,color:'var(--text2)',marginBottom:4}}>{f}</div>)}
+          </div>}
+          {Object.entries(result).filter(([k])=>!['score','grade','verdict','strengths','weaknesses','improvements','flags','submission','ts'].includes(k)).map(([k,v])=>(
+            <div key={k} style={{display:'flex',gap:8,marginBottom:5,padding:'7px 10px',background:'var(--bg4)',borderRadius:6}}>
+              <div style={{fontSize:9,color:'var(--text3)',fontFamily:'var(--mono)',textTransform:'uppercase',letterSpacing:1,width:130,flexShrink:0,paddingTop:1}}>{k.replace(/_/g,' ')}</div>
+              <div style={{fontSize:12,color:'var(--text2)',lineHeight:1.5}}>{String(v)}</div>
+            </div>
+          ))}
+          <button onClick={()=>{setResult(null);setText(result.submission||'');}} style={{marginTop:12,padding:'7px 14px',background:'transparent',border:'1px solid var(--border)',borderRadius:6,cursor:'pointer',color:'var(--text3)',fontSize:12}}>↩ Re-submit</button>
+        </>}
+      </div>}
+    </div>
+  );
+}
+
+function Dashboard({checks,reviews,activity}){
+  const ti=STEPS.reduce((a,s)=>a+s.checklist.length,0);
+  const td=STEPS.reduce((a,s)=>a+s.checklist.filter(c=>checks[c.id]).length,0);
+  const pct=Math.round((td/ti)*100);
+  const rv=STEPS.filter(s=>s.aiReview&&reviews[s.id]);
+  const avg=rv.length?Math.round(rv.reduce((a,s)=>a+(reviews[s.id]?.score||0),0)/rv.length):null;
+  const weak=STEPS.filter(s=>s.aiReview&&reviews[s.id]&&reviews[s.id].score<65);
+  const acts=[...(activity||[])].reverse().slice(0,20);
+  const inProg=STEPS.filter(s=>s.checklist.some(c=>checks[c.id])&&!s.checklist.every(c=>checks[c.id]));
+  const done=STEPS.filter(s=>s.checklist.every(c=>checks[c.id]));
+
+  return<div style={{padding:'28px 32px',maxWidth:900}}>
+    <div style={{fontFamily:'var(--mono)',fontSize:10,color:'var(--text3)',letterSpacing:2,marginBottom:6}}>OPERATOR DASHBOARD</div>
+    <div style={{fontSize:24,fontWeight:500,marginBottom:24}}>Progress Overview</div>
+
+    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))',gap:10,marginBottom:24}}>
+      {[
+        {l:'OVERALL',v:`${pct}%`,s:`${td}/${ti} tasks`,c:pct>=75?'var(--success)':pct>=40?'var(--accent)':'var(--warn)'},
+        {l:'STEPS DONE',v:done.length,s:`of ${STEPS.length}`,c:'var(--text)'},
+        {l:'AI REVIEWS',v:rv.length,s:`of ${STEPS.filter(s=>s.aiReview).length} available`,c:'var(--info)'},
+        {l:'AVG SCORE',v:avg!==null?`${avg}`:'-',s:avg!==null?(avg>=75?'On track':'Needs work'):'No reviews yet',c:avg?scoreColor(avg):'var(--text3)'},
+        {l:'WEAK AREAS',v:weak.length,s:weak.length?'below 65':'All good',c:weak.length?'var(--danger)':'var(--success)'},
+      ].map((c,i)=><div key={i} style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:'14px'}}>
+        <div style={{fontSize:9,color:'var(--text3)',fontFamily:'var(--mono)',letterSpacing:1,marginBottom:6}}>{c.l}</div>
+        <div style={{fontSize:22,fontWeight:600,fontFamily:'var(--mono)',color:c.c,marginBottom:2}}>{c.v}</div>
+        <div style={{fontSize:11,color:'var(--text3)'}}>{c.s}</div>
+      </div>)}
+    </div>
+
+    <div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:'16px 18px',marginBottom:16}}>
+      <div style={{display:'flex',justifyContent:'space-between',marginBottom:8}}><div style={{fontSize:12,color:'var(--text2)'}}>Completion</div><div style={{fontFamily:'var(--mono)',fontSize:12,color:'var(--accent)'}}>{pct}%</div></div>
+      <div style={{height:8,background:'var(--bg5)',borderRadius:4,overflow:'hidden',marginBottom:8}}><div style={{height:'100%',width:`${pct}%`,background:'linear-gradient(90deg,var(--accent),var(--success))',borderRadius:4,transition:'width 0.6s'}}/></div>
+      <div style={{display:'flex',gap:2}}>{STEPS.map(s=>{const sp=s.checklist.filter(c=>checks[c.id]).length/s.checklist.length;return<div key={s.id} style={{flex:1,height:3,borderRadius:1,background:sp===1?'var(--success)':sp>0?'var(--accent)':'var(--bg5)'}} title={s.title}/>;})}</div>
+      <div style={{fontSize:9,color:'var(--text3)',marginTop:4,fontFamily:'var(--mono)'}}>each bar = one step ({STEPS.length} total)</div>
+    </div>
+
+    {rv.length>0&&<div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:'16px 18px',marginBottom:16}}>
+      <div style={{fontSize:12,color:'var(--text2)',marginBottom:12}}>AI Review Scores</div>
+      {rv.map(s=>{const r=reviews[s.id];return<div key={s.id} style={{display:'flex',alignItems:'center',gap:10,marginBottom:8}}>
+        <div style={{fontSize:12,color:'var(--text2)',width:150,flexShrink:0,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{s.title}</div>
+        <div style={{flex:1,height:5,background:'var(--bg5)',borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${r.score}%`,background:scoreColor(r.score),borderRadius:3}}/></div>
+        <div style={{fontFamily:'var(--mono)',fontSize:11,color:scoreColor(r.score),width:55,flexShrink:0,textAlign:'right'}}>{r.score} {r.grade}</div>
+      </div>;})}
+    </div>}
+
+    {weak.length>0&&<div style={{background:'rgba(255,85,85,0.06)',border:'1px solid rgba(255,85,85,0.2)',borderRadius:10,padding:'14px 18px',marginBottom:16}}>
+      <div style={{fontSize:12,color:'var(--danger)',marginBottom:10,fontWeight:500}}>⚠ Weak Areas — Re-work & Re-submit</div>
+      {weak.map(s=><div key={s.id} style={{display:'flex',gap:10,alignItems:'flex-start',marginBottom:8}}>
+        <div style={{fontFamily:'var(--mono)',fontSize:12,color:scoreColor(reviews[s.id].score),flexShrink:0,width:35}}>{reviews[s.id].score}</div>
+        <div><div style={{fontSize:13,color:'var(--text)'}}>{s.title}</div><div style={{fontSize:11,color:'var(--text3)',marginTop:2}}>{reviews[s.id].verdict}</div></div>
+      </div>)}
+    </div>}
+
+    {inProg.length>0&&<div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:'14px 18px',marginBottom:16}}>
+      <div style={{fontSize:12,color:'var(--text2)',marginBottom:10}}>In Progress</div>
+      {inProg.map(s=>{const dn=s.checklist.filter(c=>checks[c.id]).length;return<div key={s.id} style={{display:'flex',alignItems:'center',gap:10,marginBottom:7}}>
+        <div style={{fontSize:12,color:'var(--text)',flex:1}}>{s.title}</div>
+        <div style={{fontSize:10,color:'var(--text3)',fontFamily:'var(--mono)'}}>{dn}/{s.checklist.length}</div>
+        <div style={{width:50,height:4,background:'var(--bg5)',borderRadius:2,overflow:'hidden'}}><div style={{height:'100%',width:`${dn/s.checklist.length*100}%`,background:'var(--accent)',borderRadius:2}}/></div>
+      </div>;})}
+    </div>}
+
+    {acts.length>0&&<div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:'14px 18px',marginBottom:16}}>
+      <div style={{fontSize:12,color:'var(--text2)',marginBottom:10}}>Activity Log</div>
+      {acts.map((a,i)=>{
+        const sn=STEPS.find(s=>s.id===a.stepId)?.title||'';
+        return<div key={i} style={{display:'flex',gap:8,alignItems:'flex-start',padding:'7px 10px',background:'var(--bg4)',borderRadius:6,marginBottom:5}}>
+          <div style={{fontFamily:'var(--mono)',fontSize:10,color:a.type==='review_scored'?'var(--info)':a.type==='checklist_toggled'?'var(--success)':'var(--text3)',width:16,flexShrink:0,paddingTop:1}}>{a.type==='review_scored'?'AI':a.type==='checklist_toggled'?'✓':'→'}</div>
+          <div style={{flex:1,fontSize:12,color:'var(--text2)',lineHeight:1.5}}>
+            {a.type==='review_scored'&&<><span style={{color:'var(--info)'}}>AI scored</span> {a.score}/100 ({a.grade}) — {sn}</>}
+            {a.type==='checklist_toggled'&&<><span style={{color:'var(--success)'}}>Checked:</span> {a.label} <span style={{color:'var(--text3)'}}>({sn})</span></>}
+            {a.type==='step_visited'&&<><span style={{color:'var(--text3)'}}>Visited:</span> {sn}</>}
+            {a.type==='review_submitted'&&<><span style={{color:'var(--info)'}}>Submitted review:</span> {sn}</>}
+          </div>
+          <div style={{fontSize:9,color:'var(--text3)',fontFamily:'var(--mono)',flexShrink:0}}>{fmt(a.ts)}</div>
+        </div>;
+      })}
+    </div>}
+
+    <div style={{background:'rgba(200,241,53,0.06)',border:'1px solid rgba(200,241,53,0.2)',borderRadius:10,padding:'14px 18px',marginBottom:40}}>
+      <div style={{fontSize:9,color:'var(--accent)',fontFamily:'var(--mono)',letterSpacing:2,marginBottom:8}}>RECOMMENDED NEXT ACTION</div>
+      {(()=>{
+        if(weak.length>0)return<div style={{fontSize:13,color:'var(--text)',lineHeight:1.7}}>Re-work your <strong style={{color:'var(--danger)'}}>{weak[0].title}</strong> and re-submit for AI review. Score: {reviews[weak[0].id]?.score}/100. Read the improvement points — implement them, then re-submit.</div>;
+        const unrev=STEPS.find(s=>s.aiReview&&!reviews[s.id]);
+        if(unrev)return<div style={{fontSize:13,color:'var(--text)',lineHeight:1.7}}>Submit your <strong style={{color:'var(--accent)'}}>{unrev.title}</strong> for AI review — open that step and click the "🤖 AI Review" button.</div>;
+        const first=STEPS.find(s=>s.checklist.some(c=>!checks[c.id]));
+        if(first)return<div style={{fontSize:13,color:'var(--text)',lineHeight:1.7}}>Continue <strong style={{color:'var(--accent)'}}>{first.title}</strong> — {first.checklist.filter(c=>!checks[c.id]).length} tasks remaining.</div>;
+        return<div style={{fontSize:13,color:'var(--success)',lineHeight:1.7}}>All steps complete. 🎯 Stop reading and go execute.</div>;
+      })()}
+    </div>
+  </div>;
+}
+
+function App(){
+  const[step,setStep]=useState(0);
+  const[view,setView]=useState('step');
+  const[checks,setChecks]=useState({});
+  const[reviews,setReviews]=useState({});
+  const[activity,setActivity]=useState([]);
+  const[loaded,setLoaded]=useState(false);
+  const[sidebar,setSidebar]=useState(true);
+
+  useEffect(()=>{(async()=>{
+    try{const r=await window.storage.get('ioog-checks');if(r?.value)setChecks(JSON.parse(r.value));}catch(e){}
+    try{const r=await window.storage.get('ioog-reviews');if(r?.value)setReviews(JSON.parse(r.value));}catch(e){}
+    try{const r=await window.storage.get('ioog-activity');if(r?.value)setActivity(JSON.parse(r.value));}catch(e){}
+    try{const r=await window.storage.get('ioog-step');if(r?.value)setStep(parseInt(r.value)||0);}catch(e){}
+    setLoaded(true);
+  })();},[]);
+
+  const addAct=useCallback(async ev=>{
+    setActivity(prev=>{const next=[...prev.slice(-99),ev];(async()=>{try{await window.storage.set('ioog-activity',JSON.stringify(next));}catch(e){}})();return next;});
+  },[]);
+
+  const toggleCheck=useCallback((id,label,stepId)=>{
+    setChecks(prev=>{const nc={...prev,[id]:!prev[id]};(async()=>{try{await window.storage.set('ioog-checks',JSON.stringify(nc));}catch(e){}})();addAct({type:'checklist_toggled',id,label,stepId,ts:Date.now()});return nc;});
+  },[addAct]);
+
+  const saveReview=useCallback(async(stepId,res)=>{
+    setReviews(prev=>{const nr={...prev,[stepId]:res};(async()=>{try{await window.storage.set('ioog-reviews',JSON.stringify(nr));}catch(e){}})();return nr;});
+  },[]);
+
+  const goTo=useCallback(i=>{
+    setStep(i);setView('step');
+    (async()=>{try{await window.storage.set('ioog-step',String(i));}catch(e){}})();
+    addAct({type:'step_visited',stepId:STEPS[i].id,ts:Date.now()});
+    if(window.innerWidth<768)setSidebar(false);
+  },[addAct]);
+
+  const sp=s=>{const dn=s.checklist.filter(c=>checks[c.id]).length;return Math.round((dn/s.checklist.length)*100);};
+  const td=STEPS.reduce((a,s)=>a+s.checklist.filter(c=>checks[c.id]).length,0);
+  const ti=STEPS.reduce((a,s)=>a+s.checklist.length,0);
+  const opct=Math.round((td/ti)*100);
+  const cur=STEPS[step];
+
+  if(!loaded)return<div style={{display:'flex',height:'100vh',alignItems:'center',justifyContent:'center',background:'#0a0a0b',color:'#505060',fontFamily:'IBM Plex Mono',fontSize:13}}>loading...</div>;
+
+  return<div style={{display:'flex',height:'100vh',overflow:'hidden',background:'var(--bg)'}}>
+
+    {/* SIDEBAR */}
+    <div style={{width:sidebar?268:0,minWidth:sidebar?268:0,overflow:'hidden',transition:'all 0.2s',borderRight:'1px solid var(--border)',background:'var(--bg2)',display:'flex',flexDirection:'column',flexShrink:0}}>
+      <div style={{padding:'16px 16px 12px',borderBottom:'1px solid var(--border)'}}>
+        <div style={{fontFamily:'var(--mono)',fontSize:9,color:'var(--accent)',letterSpacing:2,marginBottom:2}}>INFO OPERATOR OS v2.0</div>
+        <div style={{fontSize:10,color:'var(--text3)',fontFamily:'var(--mono)',marginBottom:12}}>guide + AI review loops</div>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
+          <Ring pct={opct} size={34} stroke={2.5}/>
+          <div><div style={{fontSize:9,color:'var(--text3)',fontFamily:'var(--mono)'}}>OVERALL PROGRESS</div><div style={{fontSize:13,fontWeight:500,color:opct===100?'var(--success)':'var(--text)',fontFamily:'var(--mono)'}}>{opct}% · {td}/{ti}</div></div>
+        </div>
+        <button onClick={()=>setView(v=>v==='dashboard'?'step':'dashboard')} style={{width:'100%',padding:'7px 12px',background:view==='dashboard'?'rgba(200,241,53,0.1)':'var(--bg4)',border:`1px solid ${view==='dashboard'?'rgba(200,241,53,0.3)':'var(--border)'}`,borderRadius:8,cursor:'pointer',color:view==='dashboard'?'var(--accent)':'var(--text3)',fontSize:11,fontFamily:'var(--mono)',letterSpacing:1,transition:'all 0.15s'}}>
+          {view==='dashboard'?'← BACK TO GUIDE':'📊 DASHBOARD + ANALYTICS'}
+        </button>
+      </div>
+      <div style={{flex:1,overflowY:'auto',padding:'6px 0'}}>
+        {STEPS.map((s,i)=>{
+          const p=sp(s),isActive=i===step&&view==='step',hr=!!reviews[s.id];
+          return<button key={s.id} onClick={()=>goTo(i)} style={{display:'flex',alignItems:'center',gap:8,width:'100%',padding:'8px 16px',background:isActive?'var(--bg3)':'transparent',border:'none',borderLeft:`2px solid ${isActive?'var(--accent)':'transparent'}`,cursor:'pointer',textAlign:'left',transition:'all 0.15s'}}>
+            <div style={{width:17,height:17,borderRadius:3,flexShrink:0,background:p===100?'var(--success)':isActive?'var(--accent)':'var(--bg4)',border:p===100||isActive?'none':'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontFamily:'var(--mono)',color:p===100||isActive?'#000':'var(--text3)',fontWeight:600}}>
+              {p===100?'✓':String(i+1).padStart(2,'0')}
+            </div>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{display:'flex',alignItems:'center',gap:4,marginBottom:1}}>
+                <div style={{fontSize:8,color:isActive?'var(--accent)':'var(--text3)',fontFamily:'var(--mono)',letterSpacing:1}}>{s.tag}</div>
+                {hr&&<div style={{fontSize:8,color:scoreColor(reviews[s.id].score),fontFamily:'var(--mono)',background:`${scoreColor(reviews[s.id].score)}18`,padding:'1px 5px',borderRadius:3}}>{reviews[s.id].score}</div>}
+              </div>
+              <div style={{fontSize:11,color:isActive?'var(--text)':'var(--text2)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{s.title}</div>
+            </div>
+          </button>;
+        })}
+      </div>
+    </div>
+
+    {/* MAIN */}
+    <div style={{flex:1,display:'flex',flexDirection:'column',overflow:'hidden',minWidth:0}}>
+      <div style={{display:'flex',alignItems:'center',gap:10,padding:'11px 22px',borderBottom:'1px solid var(--border)',background:'var(--bg2)',flexShrink:0}}>
+        <button onClick={()=>setSidebar(!sidebar)} style={{background:'transparent',border:'1px solid var(--border)',borderRadius:6,padding:'5px 9px',cursor:'pointer',color:'var(--text3)',fontSize:10,fontFamily:'var(--mono)',flexShrink:0}}>{sidebar?'◀':'▶'}</button>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:9,color:view==='dashboard'?'var(--accent)':'var(--text3)',fontFamily:'var(--mono)',letterSpacing:2}}>{view==='dashboard'?'ANALYTICS':'STEP '+(step+1)+' / '+STEPS.length}</div>
+          <div style={{fontSize:14,fontWeight:500,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{view==='dashboard'?'Dashboard':cur.title}</div>
+        </div>
+        {view==='step'&&<div style={{display:'flex',gap:6,flexShrink:0}}>
+          <button onClick={()=>{if(step>0)goTo(step-1);}} disabled={step===0} style={{background:'transparent',border:'1px solid var(--border)',borderRadius:6,padding:'5px 11px',cursor:'pointer',color:step===0?'var(--text3)':'var(--text)',fontSize:11,fontFamily:'var(--mono)',opacity:step===0?0.4:1}}>← prev</button>
+          <button onClick={()=>{if(step<STEPS.length-1)goTo(step+1);}} disabled={step===STEPS.length-1} style={{background:step===STEPS.length-1?'transparent':'var(--accent)',border:'1px solid var(--border)',borderRadius:6,padding:'5px 11px',cursor:'pointer',color:step===STEPS.length-1?'var(--text3)':'#000',fontSize:11,fontFamily:'var(--mono)',fontWeight:500,opacity:step===STEPS.length-1?0.4:1}}>next →</button>
+        </div>}
+      </div>
+
+      {view==='dashboard'
+        ?<div style={{flex:1,overflowY:'auto'}}><Dashboard checks={checks} reviews={reviews} activity={activity}/></div>
+        :<div style={{flex:1,overflowY:'auto',padding:'26px 30px',maxWidth:900}}>
+          {/* Header */}
+          <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:18,gap:14}}>
+            <div>
+              <div style={{fontFamily:'var(--mono)',fontSize:9,color:'var(--text3)',letterSpacing:2,marginBottom:5}}>STEP {step+1} — {cur.tag}</div>
+              <div style={{fontSize:24,fontWeight:500,lineHeight:1.2}}>{cur.title}</div>
+            </div>
+            <div style={{flexShrink:0,textAlign:'center'}}><Ring pct={sp(cur)} size={48} stroke={3}/><div style={{fontSize:9,color:'var(--text3)',fontFamily:'var(--mono)',marginTop:2}}>{sp(cur)}%</div></div>
+          </div>
+          <div style={{background:'var(--bg3)',border:'1px solid var(--border)',borderRadius:10,padding:'13px 16px',marginBottom:12}}><div style={{fontSize:13,color:'var(--text2)',lineHeight:1.7}}>{cur.summary}</div></div>
+          <div style={{background:'rgba(200,241,53,0.06)',border:'1px solid rgba(200,241,53,0.2)',borderRadius:10,padding:'11px 16px',marginBottom:12,display:'flex',gap:8}}><div style={{fontFamily:'var(--mono)',fontSize:9,color:'var(--accent)',letterSpacing:1,flexShrink:0,paddingTop:2}}>KEY #</div><div style={{fontSize:13,color:'var(--text)',lineHeight:1.6,fontWeight:500}}>{cur.keyMetric}</div></div>
+          <div style={{background:'rgba(68,221,136,0.06)',border:'1px solid rgba(68,221,136,0.2)',borderRadius:10,padding:'11px 16px',marginBottom:22,display:'flex',gap:8}}><div style={{fontFamily:'var(--mono)',fontSize:9,color:'var(--success)',letterSpacing:1,flexShrink:0,paddingTop:2}}>MINDSET</div><div style={{fontSize:13,color:'var(--text)',lineHeight:1.6,fontStyle:'italic'}}>{cur.mindset}</div></div>
+
+          {/* Tips */}
+          <div style={{marginBottom:24}}>
+            <div style={{fontFamily:'var(--mono)',fontSize:9,color:'var(--text3)',letterSpacing:2,marginBottom:10}}>INSIGHTS + TACTICS</div>
+            <div style={{display:'flex',flexDirection:'column',gap:5}}>
+              {cur.tips.map((tip,i)=><div key={i} style={{display:'flex',gap:10,padding:'10px 13px',background:'var(--bg3)',borderRadius:8,border:'1px solid var(--border)'}}>
+                <div style={{width:18,height:18,borderRadius:3,background:'var(--bg5)',flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'var(--mono)',fontSize:8,color:'var(--text3)',fontWeight:500,marginTop:1}}>{String(i+1).padStart(2,'0')}</div>
+                <div style={{fontSize:13,color:'var(--text2)',lineHeight:1.7}}>{tip}</div>
+              </div>)}
+            </div>
+          </div>
+
+          {/* Checklist */}
+          <div style={{marginBottom:16}}>
+            <div style={{fontFamily:'var(--mono)',fontSize:9,color:'var(--text3)',letterSpacing:2,marginBottom:10}}>ACTION CHECKLIST</div>
+            <div style={{display:'flex',flexDirection:'column',gap:4}}>
+              {cur.checklist.map(item=>{
+                const dn=!!checks[item.id];
+                return<button key={item.id} onClick={()=>toggleCheck(item.id,item.text,cur.id)} style={{display:'flex',alignItems:'flex-start',gap:10,padding:'10px 13px',background:dn?'rgba(68,221,136,0.06)':'var(--bg3)',border:`1px solid ${dn?'rgba(68,221,136,0.25)':'var(--border)'}`,borderRadius:8,cursor:'pointer',textAlign:'left',transition:'all 0.15s',width:'100%'}}>
+                  <div style={{width:17,height:17,borderRadius:3,flexShrink:0,marginTop:1,background:dn?'var(--success)':'var(--bg5)',border:dn?'none':'1px solid var(--border2)',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.15s'}}>{dn&&<span style={{fontSize:10,color:'#000',fontWeight:700}}>✓</span>}</div>
+                  <div style={{fontSize:13,color:dn?'var(--text3)':'var(--text)',textDecoration:dn?'line-through':'none',lineHeight:1.6,flex:1}}>{item.text}</div>
+                </button>;
+              })}
+            </div>
+          </div>
+
+          {/* AI Review */}
+          {cur.aiReview&&<AIReview stepId={cur.id} cfg={cur.aiReview} saved={reviews[cur.id]||null} onSave={saveReview} addAct={addAct}/>}
+
+          {/* Nav */}
+          <div style={{display:'flex',justifyContent:'space-between',padding:'20px 0',borderTop:'1px solid var(--border)',marginTop:26}}>
+            {step>0?<button onClick={()=>goTo(step-1)} style={{background:'transparent',border:'1px solid var(--border)',borderRadius:8,padding:'8px 16px',cursor:'pointer',color:'var(--text2)',fontSize:12}}>← {STEPS[step-1].title}</button>:<div/>}
+            {step<STEPS.length-1
+              ?<button onClick={()=>goTo(step+1)} style={{background:'var(--accent)',border:'none',borderRadius:8,padding:'8px 16px',cursor:'pointer',color:'#000',fontSize:12,fontWeight:500}}>Next: {STEPS[step+1].title} →</button>
+              :<div style={{background:'rgba(68,221,136,0.12)',border:'1px solid rgba(68,221,136,0.3)',borderRadius:8,padding:'8px 16px',fontSize:12,color:'var(--success)',fontWeight:500}}>🎯 Complete — go execute</div>}
+          </div>
+        </div>}
+    </div>
+  </div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
