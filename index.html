@@ -81,13 +81,14 @@ function AIReview({stepId,cfg,saved,onSave,addAct}){
     try{
       const res=await fetch('/.netlify/functions/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:cfg.sys,messages:[{role:'user',content:text}]})});
       const data=await res.json();
+      if(data.error||!data.content){setErr('Error: '+(data.error?.message||JSON.stringify(data)));setLoading(false);return;}
       const raw=data.content?.find(b=>b.type==='text')?.text||'{}';
       let parsed;
       try{parsed=JSON.parse(raw);}catch{const m=raw.match(/\{[\s\S]*\}/);parsed=m?JSON.parse(m[0]):{score:0,grade:'?',verdict:'Parse error.',strengths:[],weaknesses:[],improvements:[]};}
       const final={...parsed,submission:text,ts:Date.now()};
       setResult(final);onSave(stepId,final);
       addAct({type:'review_scored',stepId,score:final.score,grade:final.grade,ts:Date.now()});
-    }catch(e){setErr('API error — check network.');}
+    }catch(e){setErr('API error: '+e.message);}
     setLoading(false);
   };
 
