@@ -79,7 +79,7 @@ function AIReview({stepId,cfg,saved,onSave,addAct}){
     setLoading(true);setErr('');
     addAct({type:'review_submitted',stepId,preview:text.slice(0,120),ts:Date.now()});
     try{
-      const res=await fetch('/.netlify/functions/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:cfg.sys,messages:[{role:'user',content:text}]})});
+      const res=await fetch('/.netlify/functions/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:cfg.sys,messages:[{role:'user',content:text}]})});
       const data=await res.json();
       const raw=data.content?.find(b=>b.type==='text')?.text||'{}';
       let parsed;
